@@ -19,6 +19,6 @@ double divide(double num1, double num2) {
 }
 
 void resetControllers(TextEditingController con1, TextEditingController con2) {
-  con1.clear();
+  con1.clear();//عشان يفضي الميموري
   con2.clear();
 }
