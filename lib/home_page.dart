@@ -11,15 +11,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController con1 = TextEditingController();
+  final TextEditingController con1 = TextEditingController();//للتحكم في المدخلات
   final TextEditingController con2 = TextEditingController();
   String result = "0.0";
 
   void calculate(String operation) {
-    double num1 = double.tryParse(con1.text) ?? 0;
+    double num1 = double.tryParse(con1.text) ?? 0;//برجع ليهم القيمة بتاعتهم اللي هي double
     double num2 = double.tryParse(con2.text) ?? 0;
 
     double calcResult;
+    //swithch expection
     try {
       switch (operation) {
         case '+':
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           calcResult = 0;
       }
       setState(() {
-        result = calcResult.toStringAsFixed(2); // عرض رقمين بعد العلامة العشرية
+        result = calcResult.toStringAsFixed(6); // عرض ست ارقام  بعد العلامة العشرية
       });
     } catch (e) {
       setState(() {
