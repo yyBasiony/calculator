@@ -66,23 +66,44 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buttonForm(String text, Color textColor, Color backgroundColor) {
-    return Expanded(  // Wrap each button with Expanded
-      child: Container(
-        padding: EdgeInsets.all(8),
-        child: MaterialButton(
-          onPressed: () {
-             bottomPressed(text);
-          },
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(10),
-          color: backgroundColor,
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 24, color: textColor),
+    if(text!='0'){
+      return Expanded(  // Wrap each button with Expanded
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: MaterialButton(
+            onPressed: () {
+              bottomPressed(text);
+            },
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(10),
+            color: backgroundColor,
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 24, color: textColor),
+            ),
           ),
         ),
-      ),
-    );
+      );
+
+    }else{
+      return Container(
+        padding: EdgeInsets.all(10),
+        child: MaterialButton(
+          onPressed: () {
+            bottomPressed(text);
+            // Add your button onPressed logic here
+          },
+          shape: StadiumBorder(), // Fix typo here
+          padding: EdgeInsets.fromLTRB(25, 20, 90, 20), // Increase button padding
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 24, color: textColor), // Decrease font size
+          ),
+          color: backgroundColor,
+        ),
+      );
+
+    }
   }
 
   @override
