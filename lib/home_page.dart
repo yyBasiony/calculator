@@ -91,13 +91,12 @@ class _HomePageState extends State<HomePage> {
         child: MaterialButton(
           onPressed: () {
             bottomPressed(text);
-            // Add your button onPressed logic here
           },
           shape: StadiumBorder(), // Fix typo here
-          padding: EdgeInsets.fromLTRB(25, 20, 90, 20), // Increase button padding
+          padding: EdgeInsets.fromLTRB(25, 20, 90, 20),
           child: Text(
             text,
-            style: TextStyle(fontSize: 24, color: textColor), // Decrease font size
+            style: TextStyle(fontSize: 24, color: textColor),
           ),
           color: backgroundColor,
         ),
