@@ -1,218 +1,165 @@
-// main.dart or home_page.dart
-
 import 'package:flutter/material.dart';
-import 'calculator_methods.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController con1 = TextEditingController();//للتحكم في المدخلات
-  final TextEditingController con2 = TextEditingController();
-  String result = "0.0";
+  String result = '0';
+  String finalResult = '0';
+  double num1 = 0.0;
+  double num2 = 0.0;
+  String operation = '';
 
-  void calculate(String operation) {
-    double num1 = double.tryParse(con1.text) ?? 0;//برجع ليهم القيمة بتاعتهم اللي هي double
-    double num2 = double.tryParse(con2.text) ?? 0;
-
-    double calcResult;
-    //swithch expection
-    try {
-      switch (operation) {
-        case '+':
-          calcResult = add(num1, num2);
-          break;
-        case '-':
-          calcResult = subtract(num1, num2);
-          break;
-        case 'x':
-          calcResult = multiply(num1, num2);
-          break;
-        case '/':
-          calcResult = divide(num1, num2);
-          break;
-        default:
-          calcResult = 0;
+  bottomPressed(String btnValue) {
+    if (btnValue == 'AC') {
+      finalResult = '0';
+      num1 = 0.0;
+      num2 = 0.0;
+      operation = '';
+    } else if (btnValue == '+' ||
+        btnValue == '-' ||
+        btnValue == 'X' ||
+        btnValue == '/') {
+      num1 = double.parse(result);
+      operation = btnValue;
+      finalResult = '0';
+      result = result + btnValue;
+    } else if (btnValue == '.') {
+      if (finalResult.contains('.')) {
+        // Do nothing if already contains a dot
+      } else {
+        finalResult = finalResult + btnValue;
       }
-      setState(() {
-        result = calcResult.toStringAsFixed(6); // عرض ست ارقام  بعد العلامة العشرية
-      });
-    } catch (e) {
-      setState(() {
-        result = e.toString();
-      });
+    } else if (btnValue == '+/-') {
+      if (result.toString().contains('-')) {
+        result = result.toString().substring(1);
+        finalResult = result;
+      } else {
+        result = '-' + result;
+        finalResult = result;
+      }
+    } else if (btnValue == '%') {
+      num2 = double.parse(result);
+      finalResult = (num2 / 100).toString();
+    } else if (btnValue == '=') {
+      num2 = double.parse(result);
+      if (operation == '+') {
+        finalResult = (num1 + num2).toString();
+      }
+      if (operation == '-') {
+        finalResult = (num1 - num2).toString();
+      }
+      if (operation == 'X') {
+        finalResult = (num1 * num2).toString();
+      }
+      if (operation == '/') {
+        finalResult = (num1 / num2).toString();
+      }
+    } else {
+      finalResult = finalResult + btnValue;
     }
+    setState(() {
+      result = double.parse(finalResult).toString();
+    });
   }
 
-  void reset() {
-    setState(() {
-      result = '0.0';
-    });
-    resetControllers(con1, con2);
+  Widget buttonForm(String text, Color textColor, Color backgroundColor) {
+    return Expanded(  // Wrap each button with Expanded
+      child: Container(
+        padding: EdgeInsets.all(8),
+        child: MaterialButton(
+          onPressed: () {
+             bottomPressed(text);
+          },
+          shape: CircleBorder(),
+          padding: EdgeInsets.all(10),
+          color: backgroundColor,
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 24, color: textColor),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff8c7851),
-        title: Text(
-          "Calculator",
-          style: TextStyle(
-            fontSize: 28,
-            color: Color(0xfff25042),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: Color(0xffeaddcf),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
+      backgroundColor: Colors.black,
+      body:
+      Padding(
+        padding: EdgeInsets.all(8),
         child: Column(
+           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 22),
-            TextFormField(
-              textAlign: TextAlign.start,
-              controller: con1,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                labelText: 'Enter number 1',
-                labelStyle: TextStyle(
-                  color: Color(0xff8c7851),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xfff25042),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xfff25042),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xfff25042),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 22),
-            TextFormField(
-              textAlign: TextAlign.start,
-              controller: con2,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                labelText: 'Enter number 2',
-                labelStyle: TextStyle(
-                  color: Color(0xff8c7851),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xfff25042),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xfff25042),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xfff25042),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 22),
+             SizedBox(height: 100),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ElevatedButton(
-                  onPressed: () => calculate('+'),
-                  child: Text(
-                    "+",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xff8c7851),
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => calculate('-'),
-                  child: Text(
-                    "-",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xff8c7851),
-                    ),
+                Text(
+                  textAlign: TextAlign.left,
+                  "$finalResult",
+                  style: TextStyle(
+                    fontSize: 48,
+                    color: Colors.white,
                   ),
                 ),
               ],
-            ),
-            SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () => calculate('x'),
-                  child: Text(
-                    "x",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xff8c7851),
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => calculate('/'),
-                  child: Text(
-                    "/",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xff8c7851),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 22),
-            Text(
-              "Result:",
-              style: TextStyle(fontSize: 30, color: Color(0xfff25042)),
             ),
             SizedBox(height: 8),
-            Text(
-              result,
-              style: TextStyle(fontSize: 30, color: Color(0xfff25042)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             children: <Widget>[
+                buttonForm("AC", Colors.black, Colors.grey),
+                buttonForm("+/-", Colors.black, Colors.grey),
+               buttonForm("%", Colors.black, Colors.grey),
+               buttonForm("/", Colors.white, Colors.amber[800]!),
+               ],
             ),
-            SizedBox(height: 18),
-            Container(
-              height: 50,
-              width: 180,
-              decoration: BoxDecoration(
-                color: Color(0xfff25042),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: MaterialButton(
-                onPressed: reset,
-                child: Text(
-                  "Reset",
-                  style: TextStyle(fontSize: 20, color: Color(0xff8c7851)),
-                ),
-              ),
+            SizedBox(height: 8), // Increase spacing
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                buttonForm("7", Colors.white, Colors.grey[800]!),
+                buttonForm("8", Colors.white, Colors.grey[800]!),
+                buttonForm("9", Colors.white, Colors.grey[800]!),
+                buttonForm("X", Colors.white, Colors.amber[800]!),
+              ],
             ),
-          ],
-        ),
+            SizedBox(height: 8), // Increase spacing
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                buttonForm("4", Colors.white, Colors.grey[800]!),
+                buttonForm("5", Colors.white, Colors.grey[800]!),
+                buttonForm("6", Colors.white, Colors.grey[800]!),
+                buttonForm("-", Colors.white, Colors.amber[800]!),
+              ],
+            ),
+            SizedBox(height: 8), // Increase spacing
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                buttonForm("1", Colors.white, Colors.grey[800]!),
+                buttonForm("2", Colors.white, Colors.grey[800]!),
+                buttonForm("3", Colors.white, Colors.grey[800]!),
+                buttonForm("+", Colors.white, Colors.amber[800]!),
+              ],
+            ),
+            SizedBox(height: 8), // Increase spacing
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                buttonForm("0", Colors.white, Colors.grey[800]!),
+                buttonForm(".", Colors.white, Colors.grey[800]!),
+                buttonForm("=", Colors.white, Colors.amber[800]!),
+              ],
+            ),
+           ],
+         ),
       ),
     );
   }
