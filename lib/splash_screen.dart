@@ -12,7 +12,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Delay navigation to the next screen after 3 seconds
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
@@ -24,8 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
-        color: Colors.white,
+        color: Colors.black,
         child: Center(
           child: Hero(
             tag: "go",

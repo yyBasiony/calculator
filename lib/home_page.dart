@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:calculator/calculator_methods.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,122 +7,99 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String result = '0';
-  String finalResult = '0';
-  double num1 = 0.0;
-  double num2 = 0.0;
-  String operation = '';
+  final CalculatorLogic _calculatorLogic = CalculatorLogic();
+  String _displayResult = '0';
 
-  bottomPressed(String btnValue) {
-    if (btnValue == 'AC') {
-      finalResult = '0';
-      num1 = 0.0;
-      num2 = 0.0;
-      operation = '';
-    } else if (btnValue == '+' ||
-        btnValue == '-' ||
-        btnValue == 'X' ||
-        btnValue == '/') {
-      num1 = double.parse(result);
-      operation = btnValue;
-      finalResult = '0';
-      result = result + btnValue;
-    } else if (btnValue == '.') {
-      if (finalResult.contains('.')) {
-        // Do nothing if already contains a dot
-      } else {
-        finalResult = finalResult + btnValue;
-      }
-    } else if (btnValue == '+/-') {
-      if (result.toString().contains('-')) {
-        result = result.toString().substring(1);
-        finalResult = result;
-      } else {
-        result = '-' + result;
-        finalResult = result;
-      }
-    } else if (btnValue == '%') {
-      num2 = double.parse(result);
-      finalResult = (num2 / 100).toString();
-    } else if (btnValue == '=') {
-      num2 = double.parse(result);
-      if (operation == '+') {
-        finalResult = (num1 + num2).toString();
-      }
-      if (operation == '-') {
-        finalResult = (num1 - num2).toString();
-      }
-      if (operation == 'X') {
-        finalResult = (num1 * num2).toString();
-      }
-      if (operation == '/') {
-        finalResult = (num1 / num2).toString();
-      }
-    } else {
-      finalResult = finalResult + btnValue;
-    }
+  void _updateResult(String result) {
     setState(() {
-      result = double.parse(finalResult).toString();
+      _displayResult = result;
     });
   }
 
   Widget buttonForm(String text, Color textColor, Color backgroundColor) {
-    if(text!='0'){
-      return Expanded(  // Wrap each button with Expanded
-        child: Container(
-          padding: EdgeInsets.all(8),
-          child: MaterialButton(
-            onPressed: () {
-              bottomPressed(text);
-            },
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(10),
-            color: backgroundColor,
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 24, color: textColor),
-            ),
-          ),
-        ),
-      );
-
-    }else{
-      return Container(
-        padding: EdgeInsets.all(10),
+    return text != '0'
+        ? Expanded(
+      child: Container(
+        padding: EdgeInsets.all(8),
         child: MaterialButton(
           onPressed: () {
-            bottomPressed(text);
+            _calculatorLogic.buttonPressed(text, _updateResult);
           },
-          shape: StadiumBorder(), // Fix typo here
-          padding: EdgeInsets.fromLTRB(25, 20, 90, 20),
+          shape: CircleBorder(),
+          padding: EdgeInsets.all(10),
+          color: backgroundColor,
           child: Text(
             text,
             style: TextStyle(fontSize: 24, color: textColor),
           ),
-          color: backgroundColor,
         ),
-      );
-
-    }
+      ),
+    )
+        : Container(
+      padding: EdgeInsets.all(10),
+      child: MaterialButton(
+        onPressed: () {
+          _calculatorLogic.buttonPressed(text, _updateResult);
+        },
+        shape: StadiumBorder(),
+        padding: EdgeInsets.fromLTRB(25, 20, 90, 20),
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 24, color: textColor),
+        ),
+        color: backgroundColor,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    List<List<Map<String, dynamic>>> buttons = [
+      [
+        {"text": "AC", "textColor": Colors.black, "backgroundColor": Colors.grey},
+        {"text": "+/-", "textColor": Colors.black, "backgroundColor": Colors.grey},
+        {"text": "%", "textColor": Colors.black, "backgroundColor": Colors.grey},
+        {"text": "/", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
+      ],
+      [
+        {"text": "7", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "8", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "9", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "X", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
+      ],
+      [
+        {"text": "4", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "5", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "6", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "-", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
+      ],
+      [
+        {"text": "1", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "2", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "3", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "+", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
+      ],
+      [
+        {"text": "0", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": ".", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
+        {"text": "=", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
+      ],
+    ];
+
     return Scaffold(
       backgroundColor: Colors.black,
-      body:
-      Padding(
+      body: Padding(
         padding: EdgeInsets.all(8),
         child: Column(
-           mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-             SizedBox(height: 100),
+            SizedBox(height: 100),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
                   textAlign: TextAlign.left,
-                  "$finalResult",
+                  "$_displayResult",
                   style: TextStyle(
                     fontSize: 48,
                     color: Colors.white,
@@ -130,56 +108,18 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-             children: <Widget>[
-                buttonForm("AC", Colors.black, Colors.grey),
-                buttonForm("+/-", Colors.black, Colors.grey),
-               buttonForm("%", Colors.black, Colors.grey),
-               buttonForm("/", Colors.white, Colors.amber[800]!),
-               ],
-            ),
-            SizedBox(height: 8), // Increase spacing
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                buttonForm("7", Colors.white, Colors.grey[800]!),
-                buttonForm("8", Colors.white, Colors.grey[800]!),
-                buttonForm("9", Colors.white, Colors.grey[800]!),
-                buttonForm("X", Colors.white, Colors.amber[800]!),
-              ],
-            ),
-            SizedBox(height: 8), // Increase spacing
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                buttonForm("4", Colors.white, Colors.grey[800]!),
-                buttonForm("5", Colors.white, Colors.grey[800]!),
-                buttonForm("6", Colors.white, Colors.grey[800]!),
-                buttonForm("-", Colors.white, Colors.amber[800]!),
-              ],
-            ),
-            SizedBox(height: 8), // Increase spacing
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                buttonForm("1", Colors.white, Colors.grey[800]!),
-                buttonForm("2", Colors.white, Colors.grey[800]!),
-                buttonForm("3", Colors.white, Colors.grey[800]!),
-                buttonForm("+", Colors.white, Colors.amber[800]!),
-              ],
-            ),
-            SizedBox(height: 8), // Increase spacing
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                buttonForm("0", Colors.white, Colors.grey[800]!),
-                buttonForm(".", Colors.white, Colors.grey[800]!),
-                buttonForm("=", Colors.white, Colors.amber[800]!),
-              ],
-            ),
-           ],
-         ),
+
+            for (var row in buttons)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: row.map((button) {
+                  return buttonForm(button["text"], button["textColor"], button["backgroundColor"]);
+                }).toList(),
+              ),
+
+            SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }

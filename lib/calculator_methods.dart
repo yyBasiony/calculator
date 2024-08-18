@@ -1,25 +1,67 @@
-/*import 'package:flutter/material.dart';
-double add(double num1, double num2) {
-  return num1 + num2;
-}
+import 'package:flutter/material.dart';
 
-double subtract(double num1, double num2) {
-  return num1 - num2;
-}
+class CalculatorLogic {
+  String result = '0';
+  String finalResult = '0';
+  double num1 = 0.0;
+  double num2 = 0.0;
+  String operation = '';
 
-double multiply(double num1, double num2) {
-  return num1 * num2;
-}
-
-double divide(double num1, double num2) {
-  if (num2 == 0) {
-    throw ArgumentError("Undefind");
+  void buttonPressed(String btnValue, Function(String) updateResult) {
+    if (btnValue == 'AC') {
+      finalResult = '0';
+      num1 = 0.0;
+      num2 = 0.0;
+      operation = '';
+    } else if (btnValue == '+' ||
+        btnValue == '-' ||
+        btnValue == 'X' ||
+        btnValue == '/') {
+      if (operation.isEmpty) {
+        num1 = double.parse(finalResult);
+        operation = btnValue;
+        finalResult = '0';
+      } else {
+        _calculate();
+        operation = btnValue;
+      }
+    } else if (btnValue == '.') {
+      if (!finalResult.contains('.')) {
+        finalResult += btnValue;
+      }
+    } else if (btnValue == '+/-') {
+      if (finalResult.startsWith('-')) {
+        finalResult = finalResult.substring(1);
+      } else {
+        finalResult = '-' + finalResult;
+      }
+    } else if (btnValue == '%') {
+      num2 = double.parse(finalResult);
+      finalResult = (num2 / 100).toString();
+    } else if (btnValue == '=') {
+      _calculate();
+    } else {
+      if (finalResult == '0') {
+        finalResult = btnValue;
+      } else {
+        finalResult += btnValue;
+      }
+    }
+    updateResult(finalResult);
   }
-  return num1 / num2;
-}
 
-void resetControllers(TextEditingController con1, TextEditingController con2) {
-  con1.clear();//عشان يفضي الميموري
-  con2.clear();
+  void _calculate() {
+    num2 = double.parse(finalResult);
+    if (operation == '+') {
+      finalResult = (num1 + num2).toString();
+    } else if (operation == '-') {
+      finalResult = (num1 - num2).toString();
+    } else if (operation == 'X') {
+      finalResult = (num1 * num2).toString();
+    } else if (operation == '/') {
+      finalResult = (num1 / num2).toString();
+    }
+    num1 = double.parse(finalResult);
+    operation = '';
+  }
 }
-*/
