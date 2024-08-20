@@ -16,74 +16,66 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget buttonForm(String text, Color textColor, Color backgroundColor) {
+  Color getTextColor(int index) {
+    return index < 3 ? Colors.black : Colors.white;
+  }
+
+  Color getBackgroundColor(int index) {
+    if (index < 3) {
+      return Colors.grey[400] ?? Colors.grey;
+    }
+    return index % 4 == 3 ? Colors.amber[800] ?? Colors.amber : Colors.grey[800] ?? Colors.grey;
+  }
+
+
+  Widget buttonForm(String text, int index) {
     return text != '0'
         ? Expanded(
-      child: Container(
+      child: Padding(
         padding: EdgeInsets.all(8),
-        child: MaterialButton(
+        child: ElevatedButton(
           onPressed: () {
             _calculatorLogic.buttonPressed(text, _updateResult);
           },
-          shape: CircleBorder(),
-          padding: EdgeInsets.all(10),
-          color: backgroundColor,
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(10),
+            backgroundColor: getBackgroundColor(index),
+          ),
           child: Text(
             text,
-            style: TextStyle(fontSize: 24, color: textColor),
+            style: TextStyle(fontSize: 24, color: getTextColor(index)),
           ),
         ),
       ),
     )
-        : Container(
+        : Padding(
       padding: EdgeInsets.all(10),
-      child: MaterialButton(
+      child: ElevatedButton(
         onPressed: () {
           _calculatorLogic.buttonPressed(text, _updateResult);
         },
-        shape: StadiumBorder(),
-        padding: EdgeInsets.fromLTRB(25, 20, 90, 20),
+        style: ElevatedButton.styleFrom(
+          shape: StadiumBorder(),
+          padding: EdgeInsets.fromLTRB(25, 20, 90, 20),
+          backgroundColor: getBackgroundColor(index),
+        ),
         child: Text(
           text,
-          style: TextStyle(fontSize: 24, color: textColor),
+          style: TextStyle(fontSize: 24, color: getTextColor(index)),
         ),
-        color: backgroundColor,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    List<List<Map<String, dynamic>>> buttons = [
-      [
-        {"text": "AC", "textColor": Colors.black, "backgroundColor": Colors.grey},
-        {"text": "+/-", "textColor": Colors.black, "backgroundColor": Colors.grey},
-        {"text": "%", "textColor": Colors.black, "backgroundColor": Colors.grey},
-        {"text": "/", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
-      ],
-      [
-        {"text": "7", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "8", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "9", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "X", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
-      ],
-      [
-        {"text": "4", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "5", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "6", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "-", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
-      ],
-      [
-        {"text": "1", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "2", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "3", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "+", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
-      ],
-      [
-        {"text": "0", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": ".", "textColor": Colors.white, "backgroundColor": Colors.grey[800]},
-        {"text": "=", "textColor": Colors.white, "backgroundColor": Colors.amber[800]},
-      ],
+    List<String> buttonLabels = [
+      "AC", "+/-", "%", "/",
+      "7", "8", "9", "X",
+      "4", "5", "6", "-",
+      "1", "2", "3", "+",
+      "0", ".", "="
     ];
 
     return Scaffold(
@@ -93,31 +85,32 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 100),
+            SizedBox(height: 135),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  textAlign: TextAlign.left,
-                  "$_displayResult",
-                  style: TextStyle(
-                    fontSize: 48,
-                    color: Colors.white,
+                Padding(
+                  padding: EdgeInsets.only(right: 24.0),
+                  child: Text(
+                    "$_displayResult",
+                    style: TextStyle(
+                      fontSize: 48,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 8),
-
-            for (var row in buttons)
+            SizedBox(height: 4),
+            for (int i = 0; i < buttonLabels.length; i += 4)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: row.map((button) {
-                  return buttonForm(button["text"], button["textColor"], button["backgroundColor"]);
-                }).toList(),
+                children: [
+                  for (int j = 0; j < 4; j++)
+                    if (i + j < buttonLabels.length)
+                      buttonForm(buttonLabels[i + j], i + j),
+                ],
               ),
-
-            SizedBox(height: 8),
           ],
         ),
       ),

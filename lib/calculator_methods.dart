@@ -52,15 +52,24 @@ class CalculatorLogic {
 
   void _calculate() {
     num2 = double.parse(finalResult);
-    if (operation == '+') {
-      finalResult = (num1 + num2).toString();
-    } else if (operation == '-') {
-      finalResult = (num1 - num2).toString();
-    } else if (operation == 'X') {
-      finalResult = (num1 * num2).toString();
-    } else if (operation == '/') {
-      finalResult = (num1 / num2).toString();
+
+    switch (operation) {
+      case '+':
+        finalResult = (num1 + num2).toString();
+        break;
+      case '-':
+        finalResult = (num1 - num2).toString();
+        break;
+      case 'X':
+        finalResult = (num1 * num2).toString();
+        break;
+      case '/':
+        finalResult = (num1 / num2).toString();
+        break;
+      default:
+        break;
     }
+
     num1 = double.parse(finalResult);
     operation = '';
   }
