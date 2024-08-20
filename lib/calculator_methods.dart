@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class CalculatorLogic {
   String result = '0';
@@ -52,25 +51,23 @@ class CalculatorLogic {
 
   void _calculate() {
     num2 = double.parse(finalResult);
+    double result;
 
     switch (operation) {
       case '+':
-        finalResult = (num1 + num2).toString();
-        break;
+        result = num1 + num2;
       case '-':
-        finalResult = (num1 - num2).toString();
-        break;
+        result = num1 - num2;
       case 'X':
-        finalResult = (num1 * num2).toString();
-        break;
+        result = num1 * num2;
       case '/':
-        finalResult = (num1 / num2).toString();
-        break;
+        result = num1 / num2;
       default:
-        break;
+        throw ArgumentError(' invaliedOperation');
     }
 
-    num1 = double.parse(finalResult);
+    finalResult = result.toString();
+    num1 = result;
     operation = '';
   }
 }

@@ -24,58 +24,76 @@ class _HomePageState extends State<HomePage> {
     if (index < 3) {
       return Colors.grey[400] ?? Colors.grey;
     }
-    return index % 4 == 3 ? Colors.amber[800] ?? Colors.amber : Colors.grey[800] ?? Colors.grey;
+    if (index == 18) {
+      return Colors.orange;
+    }
+    return index % 4 == 3
+        ? Colors.amber[800] ?? Colors.amber
+        : Colors.grey[800] ?? Colors.grey;
   }
-
 
   Widget buttonForm(String text, int index) {
     return text != '0'
         ? Expanded(
-      child: Padding(
-        padding: EdgeInsets.all(8),
-        child: ElevatedButton(
-          onPressed: () {
-            _calculatorLogic.buttonPressed(text, _updateResult);
-          },
-          style: ElevatedButton.styleFrom(
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(10),
-            backgroundColor: getBackgroundColor(index),
-          ),
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 24, color: getTextColor(index)),
-          ),
-        ),
-      ),
-    )
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: ElevatedButton(
+                onPressed: () {
+                  _calculatorLogic.buttonPressed(text, _updateResult);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(10),
+                  backgroundColor: getBackgroundColor(index),
+                ),
+                child: Text(
+                  text,
+                  style: TextStyle(fontSize: 24, color: getTextColor(index)),
+                ),
+              ),
+            ),
+          )
         : Padding(
-      padding: EdgeInsets.all(10),
-      child: ElevatedButton(
-        onPressed: () {
-          _calculatorLogic.buttonPressed(text, _updateResult);
-        },
-        style: ElevatedButton.styleFrom(
-          shape: StadiumBorder(),
-          padding: EdgeInsets.fromLTRB(25, 20, 90, 20),
-          backgroundColor: getBackgroundColor(index),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 24, color: getTextColor(index)),
-        ),
-      ),
-    );
+            padding: EdgeInsets.all(10),
+            child: ElevatedButton(
+              onPressed: () {
+                _calculatorLogic.buttonPressed(text, _updateResult);
+              },
+              style: ElevatedButton.styleFrom(
+                shape: StadiumBorder(),
+                padding: EdgeInsets.fromLTRB(25, 20, 90, 20),
+                backgroundColor: getBackgroundColor(index),
+              ),
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 24, color: getTextColor(index)),
+              ),
+            ),
+          );
   }
 
   @override
   Widget build(BuildContext context) {
     List<String> buttonLabels = [
-      "AC", "+/-", "%", "/",
-      "7", "8", "9", "X",
-      "4", "5", "6", "-",
-      "1", "2", "3", "+",
-      "0", ".", "="
+      "AC",
+      "+/-",
+      "%",
+      "/",
+      "7",
+      "8",
+      "9",
+      "X",
+      "4",
+      "5",
+      "6",
+      "-",
+      "1",
+      "2",
+      "3",
+      "+",
+      "0",
+      ".",
+      "="
     ];
 
     return Scaffold(
