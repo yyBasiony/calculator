@@ -48,7 +48,6 @@ class CalculatorLogic {
     }
     updateResult(finalResult);
   }
-
   void _calculate() {
     num2 = double.parse(finalResult);
     double result;
@@ -65,7 +64,6 @@ class CalculatorLogic {
       default:
         throw ArgumentError(' invaliedOperation');
     }
-
     finalResult = result.toString();
     num1 = result;
     operation = '';
