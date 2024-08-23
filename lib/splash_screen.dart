@@ -1,4 +1,4 @@
-import 'package:calculator/home_page.dart';
+import 'package:calculator/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,17 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Container(
-        color: Colors.black,
-        child: Center(
-          child: Hero(
-            tag: "go",
-            child: CircleAvatar(
-              radius: 80, // Set the radius to 80
-              backgroundImage: AssetImage("assets/Lavender Calculator App Icon.jpeg"),
-              backgroundColor: Colors.transparent,
-            ),
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Hero(
+          tag: "go",
+          child: CircleAvatar(
+            radius: 80,
+            backgroundImage: AssetImage("assets/Lavender Calculator App Icon.jpeg"),
+            backgroundColor: Colors.transparent,
           ),
         ),
       ),
