@@ -8,12 +8,14 @@ https://github.com/yyBasiony/calculator.git
 
 #### Scaffold
 
-    A basic structure for visual elements in the app.
-    Provides the structure for the SplashScreen and HomePage.
+   - A basic structure for visual elements in the app.
+    -Provides the structure for the SplashScreen and HomePage.
+         return Scaffold(
+      ),
 
 ##### Center
 
-    Used to center the child widget (the app icon) inside the splash screen.
+    -Used to center the child widget (the app icon) inside the splash screen.
 
 
 ###### CircleAvatar
@@ -34,26 +36,53 @@ https://github.com/yyBasiony/calculator.git
 
 ######### Column
 
-    Used to vertically arrange the widgets in both the splash and home screens.
+- Used to vertically arrange the widgets in both the splash and home screens.
+          body: Column(
+          children[
+            Container(
+              color: Colors.orange,
+              height: 100,
+              child: Center(child: Text('')),
+            ),
+
 
 ########## Row
 
-    Used in the calculator layout to display buttons in a horizontal arrangement.
+   - Used in the calculator layout to display buttons in a horizontal arrangement.
+             body: Row(
+          children[
+            Container(
+              color: Colors.orange,
+              height: 100,
+              child: Center(child: Text('')),
+            ),
+
 
 ########## ElevatedButton
 
-    Used to create the calculator buttons, with custom styles such as rounded or rectangular shapes.
+   - Used to create the calculator buttons, with custom styles such as rounded or rectangular shapes.
+    ElevatedButton.icon(
+  onPressed: () {},
+  icon: Icon(Icons.thumb_up),
+  label: Text('Like'),
+)
+
 
 ########### Text
 
-    Displays the result of the calculator and labels for the buttons.
+   - Displays the result of the calculator and labels for the buttons.
+    Text(""),
 
 ########## Expanded
 
-    Expands the button widgets to take up available space in the Row.
+   - Expands the button widgets to take up available space in the Row.
+    Expanded(
+      child: Container(color: Colors.orange),
+    ),
+
 
 ########### CircleBorder and StadiumBorder
 
-    Used to define the shape of the buttons (circular or rectangular).
+    -Used to define the shape of the buttons (circular or rectangular).
 
 
