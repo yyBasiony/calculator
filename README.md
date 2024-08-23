@@ -34,6 +34,7 @@ https://github.com/yyBasiony/calculator.git
 
 
 ####### Future.delayed
+
       Delays the transition from the splash screen to the home screen for 3 seconds.
         void initState() {
     super.initState();
@@ -42,6 +43,7 @@ https://github.com/yyBasiony/calculator.git
   }
 
 ######## Navigator.pushReplacement
+
    Replaces the current screen with the home screen after the splash screen duration.
          Navigator.pushReplacement(
         context,
@@ -50,22 +52,21 @@ https://github.com/yyBasiony/calculator.git
 
 
  ######## Padding
-           padding: EdgeInsets.all(16.0), 
+ 
            Adds spacing around the elements, especially around buttons and text.
+                      padding: EdgeInsets.all(16.0), 
 
-######### Column
+
+########### Column
 
  Used to vertically arrange the widgets in both the splash and home screens.
-          body: Column(
+             body: Column(
           children[
             Container(
               color: Colors.orange,
               height: 100,
               child: Center(child: Text('')),
             ),
-
-
-########## Row
 
     Used in the calculator layout to display buttons in a horizontal arrangement.
              body: Row(
@@ -84,8 +85,7 @@ https://github.com/yyBasiony/calculator.git
   onPressed: () {},
   icon: Icon(Icons.thumb_up),
   label: Text('Like'),
-)
-
+),
 
 ########### Text
 
