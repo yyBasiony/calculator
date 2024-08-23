@@ -8,14 +8,21 @@ https://github.com/yyBasiony/calculator.git
 
 #### Scaffold
 
-   - A basic structure for visual elements in the app.
-    -Provides the structure for the SplashScreen and HomePage.
-      -   return Scaffold(
+    A basic structure for visual elements in the app.
+    Provides the structure for the SplashScreen and HomePage.
+         return Scaffold(
       ),
 
 ##### Center
 
-    -Used to center the child widget (the app icon) inside the splash screen.
+    Used to center the child widget (the app icon) inside the splash screen.
+            body: Center(
+          child: Text(
+            '',
+            style: TextStyle(fontSize: 10),
+          ),
+        ),
+
 
 
 ###### CircleAvatar
@@ -23,12 +30,20 @@ https://github.com/yyBasiony/calculator.git
   -  Displays a circular image. It's used in the splash screen for the app logo.
 
 ####### Future.delayed
-
-  -  Delays the transition from the splash screen to the home screen for 3 seconds.
+      Delays the transition from the splash screen to the home screen for 3 seconds.
+        void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 3), () {
+    });
+  }
 
 ######## Navigator.pushReplacement
+   Replaces the current screen with the home screen after the splash screen duration.
+         Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
 
-   - Replaces the current screen with the home screen after the splash screen duration.
 
  ######## Padding
 
@@ -37,7 +52,7 @@ https://github.com/yyBasiony/calculator.git
 ######### Column
 
 - Used to vertically arrange the widgets in both the splash and home screens.
-      -    body: Column(
+          body: Column(
           children[
             Container(
               color: Colors.orange,
@@ -49,7 +64,7 @@ https://github.com/yyBasiony/calculator.git
 ########## Row
 
    - Used in the calculator layout to display buttons in a horizontal arrangement.
-        -     body: Row(
+             body: Row(
           children[
             Container(
               color: Colors.orange,
@@ -60,8 +75,8 @@ https://github.com/yyBasiony/calculator.git
 
 ########## ElevatedButton
 
-   - Used to create the calculator buttons, with custom styles such as rounded or rectangular shapes.
-  -  ElevatedButton.icon(
+   Used to create the calculator buttons, with custom styles such as rounded or rectangular shapes.
+    ElevatedButton.icon(
   onPressed: () {},
   icon: Icon(Icons.thumb_up),
   label: Text('Like'),
@@ -70,8 +85,8 @@ https://github.com/yyBasiony/calculator.git
 
 ########### Text
 
-   - Displays the result of the calculator and labels for the buttons.
-  -  Text(""),
+    Displays the result of the calculator and labels for the buttons.
+    Text(""),
 
 ########## Expanded
 
