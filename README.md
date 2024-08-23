@@ -4,7 +4,7 @@ A new Flutter project.
 ## Linke
 https://github.com/yyBasiony/calculator.git
 ### Image
-<img src="https://github.com/yyBasiony/calculator/blob/main/assets/Screenshot%202024-08-23%20144745.png" width="150"height="200">
+![Ui](https://github.com/yyBasiony/calculator/raw/main/assets/Screenshot%202024-08-23%20144745.png)
 
 #### Scaffold
 
