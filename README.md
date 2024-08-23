@@ -46,8 +46,8 @@ https://github.com/yyBasiony/calculator.git
 
 
  ######## Padding
-
-  -  Adds spacing around the elements, especially around buttons and text.
+           padding: EdgeInsets.all(16.0), 
+           Adds spacing around the elements, especially around buttons and text.
 
 ######### Column
 
@@ -90,14 +90,20 @@ https://github.com/yyBasiony/calculator.git
 
 ########## Expanded
 
-   - Expands the button widgets to take up available space in the Row.
-  -  Expanded(
+    Expands the button widgets to take up available space in the Row.
+    Expanded(
       child: Container(color: Colors.orange),
     ),
 
 
-########### CircleBorder and StadiumBorder
+########### CircleBorder 
 
-    -Used to define the shape of the buttons (circular or rectangular).
+    Used to define the shape of the buttons (circular or rectangular).
+                decoration: BoxDecoration(
+              color: Colors.blue,
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.white, width: 5),
+            ),
+
 
 
