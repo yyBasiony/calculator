@@ -27,7 +27,11 @@ https://github.com/yyBasiony/calculator.git
 
 ###### CircleAvatar
 
-  -  Displays a circular image. It's used in the splash screen for the app logo.
+ Displays a circular image. It's used in the splash screen for the app logo.
+           child: CircleAvatar(
+            radius: 50, 
+          ),
+
 
 ####### Future.delayed
       Delays the transition from the splash screen to the home screen for 3 seconds.
@@ -51,7 +55,7 @@ https://github.com/yyBasiony/calculator.git
 
 ######### Column
 
-- Used to vertically arrange the widgets in both the splash and home screens.
+ Used to vertically arrange the widgets in both the splash and home screens.
           body: Column(
           children[
             Container(
@@ -63,7 +67,7 @@ https://github.com/yyBasiony/calculator.git
 
 ########## Row
 
-   - Used in the calculator layout to display buttons in a horizontal arrangement.
+    Used in the calculator layout to display buttons in a horizontal arrangement.
              body: Row(
           children[
             Container(
