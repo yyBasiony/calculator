@@ -25,13 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Hero(
-          tag: "go",
-          child: CircleAvatar(
-            radius: 80,
-            backgroundImage: AssetImage("assets/Lavender Calculator App Icon.jpeg"),
-            backgroundColor: Colors.transparent,
-          ),
+        child: CircleAvatar(
+          radius: 80,
+          backgroundImage: AssetImage("assets/Lavender Calculator App Icon.jpeg"),
+          backgroundColor: Colors.transparent,
         ),
       ),
     );
