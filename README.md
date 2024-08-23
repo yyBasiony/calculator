@@ -1,19 +1,11 @@
 # calculator
 
 A new Flutter project.
+## Linke
+https://github.com/yyBasiony/calculator.git
+### Image
+<img src="https://github.com/yyBasiony/calculator/blob/main/assets/Screenshot%202024-08-23%20144745.png" width="150"height="200">
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 1. Scaffold
 
     A basic structure for visual elements in the app.
